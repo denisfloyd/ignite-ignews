@@ -14,22 +14,28 @@ export default NextAuth({
       scope: "read:user",
     }),
   ],
+  jwt: {
+    signingKey: process.env.SIGNING_KEY,
+  },
   callbacks: {
     async signIn(user, account, profile) {
       const { email } = user;
 
-      await fauna.query(
-        q.Create(
-          q.Collection('users'),
-          {
-            data: {
-              email
+      try {
+        await fauna.query(
+          q.Create(
+            q.Collection('users'),
+            {
+              data: {
+                email
+              }
             }
-          }
+          )
         )
-      )
-
-      return true;
-    }, 
+        return true;
+      } catch {
+        return false;
+      }
+    },
   },
 });
