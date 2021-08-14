@@ -29,8 +29,8 @@ export default function Posts({ posts }: PostsProps) {
         <div className={styles.posts}>
           {posts &&
             posts.map((post) => (
-              <Link href={`/posts/${post.slug}`}>
-                <a key={post.slug}>
+              <Link key={post.slug} href={`/posts/${post.slug}`}>
+                <a>
                   <time>{post.updatedAt}</time>
                   <strong>{post.title}</strong>
                   <p>{post.excerpt}</p>
@@ -64,9 +64,9 @@ export const getStaticProps: GetStaticProps = async () => {
       updatedAt: new Date(post.last_publication_date).toLocaleDateString(
         "pt-BR",
         {
-          day: "2-digit",
-          month: "long",
           year: "numeric",
+          month: "long",
+          day: "2-digit",
         }
       ),
     };
