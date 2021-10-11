@@ -5,6 +5,7 @@ import { getPrismicClient } from "../../services/prismic";
 import Head from "next/head";
 
 import styles from "./post.module.scss";
+import { useRouter } from "next/router";
 
 interface PostProps {
   post: {
@@ -16,6 +17,14 @@ interface PostProps {
 }
 
 export default function Post({ post }: PostProps) {
+  const router = useRouter();
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>
