@@ -21,7 +21,7 @@ jest.mock("next-auth/client", () => {
 
 describe("Header component", () => {
   it("should render correctly", () => {
-    const { debug, getByText } = render(<Header />);
+    const { getByText } = render(<Header />);
 
     expect(getByText("Home")).toBeInTheDocument();
     expect(getByText("Posts")).toBeInTheDocument();
